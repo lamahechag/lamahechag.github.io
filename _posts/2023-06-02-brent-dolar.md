@@ -43,5 +43,22 @@ Donde se observa que el año 2021 se comporta diferente al resto. Lo cual se pue
 
 El análisis de correlación de primera mano es la de Pearson, que es lineal. Sin embargo, generalmente se encuentran muchas relaciones no-lineales. Para esto caso de no-linealidad, podemos complementar calculando la correlación de Spearman.
 
+La correlación de los datos de varios años puede llevar a la paradoja de Simpson; observando correlaciones positivas entre el Brent y el dolar en Colombia. En la siguiente tabla se muestran las correlaciones para dos rangos de años diferentes:
+
+
+|             | 2016-2023   | 2010-2023 |
+| ----------- | ----------- | --------- | 
+| Pearson     | 0.45        | -0.48     |
+| Spearman    | 0.38        | -0.50     |
+
+
 Tambien hay que tener en cuenta el retardo en el cambio del precio del dolar debido al cambio en el Brent. Como los datos que tenemos son diarios, calcularemos las correlaciones con retardos de días. Por ejemplo, para un retardo de 
 10 días buscamos para cada fecha del precio del dolar el valor del Brent 10 días atras.
+
+
+<div align="center">
+    <img src="{{ site.baseurl }}/images/correlation_lags.png">
+</div>
+
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://lamahechag.github.io/brent-dolar/">Dependencia COP/USD y el barril Brent</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/lamahechag">luis alejandro mahecha</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
+
