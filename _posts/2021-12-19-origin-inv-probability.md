@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Inverse probability simulation
+published: false
 ---
 We usually think in the classical experiment of determining the number of heads given a bayased coin. But how can we think 
 about to know the value of heads probability of the coin given the number of heads?

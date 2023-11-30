@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Monty Hall simulation and interpretation
+published: false
 ---
 In the MOnty hall game you have three doors and one of them has a car. By deifinition you ar goin to fail 66% of the time.
 Noe suppose that there is a game presenter that after you choce a door, he opens another door that does not contain the car, and give you

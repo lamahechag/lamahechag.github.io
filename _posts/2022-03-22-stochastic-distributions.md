@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Stochastic processes and distributions
+published: false
 ---
 We can derive probability distributions from a single random process: Binomial, Poisson, exponential, Gaussian.
 

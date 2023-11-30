@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ridge regression from Bayes formula
+published: false
 ---
 In Bayes curve fitting we have an inference about coefficients posteriory distributions, and the prediction distribution given
 training data and new predictors datapoints.
