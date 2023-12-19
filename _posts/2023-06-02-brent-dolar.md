@@ -72,7 +72,25 @@ También hay que tener en cuenta el retardo en el cambio del precio del dolar de
     <img src="{{ site.baseurl }}/images/correlation_lags_2016.png">    
 </div>
 
+Anteriormente vimos, en un scatterplot, que el grupo de datos(brent vs dolar) para cada año tienen patrones de asociasión diferentes, y que la correlación global tiene signo diferente dependiendo del periodo a estudiar. En la siguiente tabla se muestra la correlación de Pearson para cada año.
 
+<p>&nbsp;</p>
+<div align="center">
+    <figcaption>Pearson correlation.</figcaption>
+    <img src="{{ site.baseurl }}/images/correlation_table.png">    
+</div>
+<p>&nbsp;</p>
+
+A estos resultados contrarios al analizar el total del conjunto de datos y sus subgrupos, se le conoce como paradoja de Simpson.
+
+Por ultimo, hago unas observaciones sobre la revesibilidad de la dependencia de estas dos varibles. Algunos analistas economicos se refieren a la reversibilidad, como el proceso en el cual el retroceso de una variable reversa a su estado inicial la variable dependiente. Por ejemplo, cuando el barril Brent cae de 120 a 80, el dolar en Colombia sube de 3800 a 4500; pero si reversamos el brent de 80 a los 120 iniciales, el dolar no retorna a los 3800 iniciales. Estas irreversibilidades ó asimetrias es algo que se encuentra frecuentemente en los sistemas complejos. Esto se puede observar con un gráfico de la marcha aleatoria, que muestra la dirección de cada paso.
+
+<p>&nbsp;</p>
+<div align="center">
+    <figcaption>Marcha aleatoria brent vs COP/USD 2010-2023.</figcaption>
+    <img src="{{ site.baseurl }}/images/random_walk.png">    
+</div>
+<p>&nbsp;</p>
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://lamahechag.github.io/brent-dolar/">Dependencia COP/USD y el barril Brent</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/lamahechag">luis alejandro mahecha</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
 
