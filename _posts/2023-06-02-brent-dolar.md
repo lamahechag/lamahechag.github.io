@@ -81,9 +81,9 @@ Anteriormente vimos, en un scatterplot, que el grupo de datos(brent vs dolar) pa
 </div>
 <p>&nbsp;</p>
 
-A estos resultados contrarios al analizar el total del conjunto de datos y sus subgrupos, se le conoce como paradoja de Simpson.
+A estos resultados, opuestos al analizar el total del conjunto de datos y sus subgrupos, se le conoce como paradoja de Simpson.
 
-Por ultimo, hago unas observaciones sobre la revesibilidad de la dependencia de estas dos varibles. Algunos analistas economicos se refieren a la reversibilidad, como el proceso en el cual el retroceso de una variable reversa a su estado inicial la variable dependiente. Por ejemplo, cuando el barril Brent cae de 120 a 80, el dolar en Colombia sube de 3800 a 4500; pero si reversamos el brent de 80 a los 120 iniciales, el dolar no retorna a los 3800 iniciales. Estas irreversibilidades ó asimetrias es algo que se encuentra frecuentemente en los sistemas complejos. Esto se puede observar con un gráfico de la marcha aleatoria, que muestra la dirección de cada paso.
+Ahora, hagamos un grafico con flechas que nos indiquen el cambio de las dos variables entre dias consecutivos. Que es una representación de una marcha aleatoria.
 
 <p>&nbsp;</p>
 <div align="center">
@@ -91,6 +91,23 @@ Por ultimo, hago unas observaciones sobre la revesibilidad de la dependencia de 
     <img src="{{ site.baseurl }}/images/random_walk.png">    
 </div>
 <p>&nbsp;</p>
+
+La anterior representación nos lleva a preguntarnos si la magnitud del cambio depende de la dirección del cambio del Brent. Algunos analistas economicos se refieren a la reversibilidad: como el proceso en el cual el retroceso de una variable reversa a su estado inicial la variable dependiente. Por ejemplo, cuando el barril Brent cae de 120 a 80, el dolar en Colombia sube de 3800 a 4500; pero si reversamos el brent de 80 a los 120 iniciales, el dolar no retorna a los 3800 iniciales. Estas irreversibilidades ó asimetrías es algo que se encuentra frecuentemente en los sistemas complejos.
+
+Una forma de analizar la asimetría en estos datos, es calculando una regresión lineal sobre la diferencia entre registros consecutivos de ambas variables. Partimos los datos en dos grupos: uno donde el cambio del Brent es positivo, y otro donde es negativo. Y comparamos el valor de la pendiente resultante en la regresión lineal de cada grupo. En el siguiente grafico, de intervalos de cofianza, podemos ver la diferencia entre pendientes.
+
+
+<p>&nbsp;</p>
+<div align="center">
+    <figcaption>Rangos del efecto del Brent para cambios positvos y negativos</figcaption>
+    <img src="{{ site.baseurl }}/images/ranges_slopes.png">    
+</div>
+<p>&nbsp;</p>
+
+
+
+
+
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://lamahechag.github.io/brent-dolar/">Dependencia COP/USD y el barril Brent</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/lamahechag">luis alejandro mahecha</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
 
