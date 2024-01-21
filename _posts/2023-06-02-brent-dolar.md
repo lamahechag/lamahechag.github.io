@@ -42,7 +42,7 @@ Donde se observa que el año 2021 se comporta diferente al resto. Lo cual se pue
 
 # Análisis de correlación
 
-El análisis de correlación de primera mano es la de Pearson, que es lineal. Sin embargo, generalmente se encuentran muchas relaciones no-lineales. Para esto caso de no-linealidad, podemos complementar calculando la correlación de Spearman.
+El análisis de correlación de primera mano es la de Pearson, que es lineal. Sin embargo, generalmente se encuentran muchas relaciones no-lineales. Para este caso de no-linealidad, podemos complementar calculando la correlación de Spearman.
 
 La correlación de los datos de varios años, como un solo grupo, puede llevar a la paradoja de Simpson; observando correlaciones positivas entre el Brent y el dolar en Colombia. En la siguiente tabla se muestran las correlaciones para dos rangos de años diferentes:
 
@@ -55,7 +55,7 @@ La correlación de los datos de varios años, como un solo grupo, puede llevar a
 
 
 También hay que tener en cuenta el retardo en el cambio del precio del dolar debido al cambio en el Brent. Como los datos que tenemos son diarios, calcularemos las correlaciones con retardos de días. Por ejemplo, para un retardo de 
-10 días buscamos para cada fecha del precio del dolar el valor del Brent 10 días atras.
+10 días, para cada fecha del precio del dolar buscamos el valor del Brent 10 días atras.
 
 <p>&nbsp;</p>
 
@@ -72,7 +72,7 @@ También hay que tener en cuenta el retardo en el cambio del precio del dolar de
     <img src="{{ site.baseurl }}/images/correlation_lags_2016.png">    
 </div>
 
-Anteriormente vimos, en un scatterplot, que el grupo de datos(brent vs dolar) para cada año tienen patrones de asociasión diferentes, y que la correlación global tiene signo diferente dependiendo del periodo a estudiar. En la siguiente tabla se muestra la correlación de Pearson para cada año.
+Anteriormente vimos, en un scatterplot, que el grupo de datos(brent vs dolar) para cada año tienen patrones de asociasión diferentes, y que la correlación global tiene signo diferente dependiendo del rango analizado. En la siguiente tabla se muestra la correlación de Pearson para cada año.
 
 <p>&nbsp;</p>
 <div align="center">
@@ -83,7 +83,7 @@ Anteriormente vimos, en un scatterplot, que el grupo de datos(brent vs dolar) pa
 
 A estos resultados, opuestos al analizar el total del conjunto de datos y sus subgrupos, se le conoce como paradoja de Simpson.
 
-Ahora, hagamos un grafico con flechas que nos indiquen el cambio de las dos variables entre dias consecutivos. Que es una representación de una marcha aleatoria.
+Ahora, hagamos un grafico con flechas que nos indiquen el cambio de las dos variables entre dias consecutivos, para retardo cero. Esto es una representación de una marcha aleatoria.
 
 <p>&nbsp;</p>
 <div align="center">
@@ -92,19 +92,21 @@ Ahora, hagamos un grafico con flechas que nos indiquen el cambio de las dos vari
 </div>
 <p>&nbsp;</p>
 
-La anterior representación nos lleva a preguntarnos si la magnitud del cambio depende de la dirección del cambio del Brent. Algunos analistas economicos se refieren a la reversibilidad: como el proceso en el cual el retroceso de una variable reversa a su estado inicial la variable dependiente. Por ejemplo, cuando el barril Brent cae de 120 a 80, el dolar en Colombia sube de 3800 a 4500; pero si reversamos el brent de 80 a los 120 iniciales, el dolar no retorna a los 3800 iniciales. Estas irreversibilidades ó asimetrías es algo que se encuentra frecuentemente en los sistemas complejos.
+La anterior representación nos lleva a preguntarnos si la magnitud del cambio depende de la dirección del cambio del Brent. Algunos analistas economicos se refieren a la reversibilidad, como el proceso en el cual el retroceso de una variable reversa a su estado inicial la variable dependiente. Por ejemplo, cuando el barril Brent cae de 120 a 80, el dolar en Colombia sube de 3800 a 4500; pero si reversamos el brent de 80 a los 120 iniciales, el dolar no retorna a los 3800 iniciales. Estas irreversibilidades, ó asimetrías, es algo que se encuentra frecuentemente en los sistemas complejos.
 
-Una forma de analizar la asimetría en estos datos, es calculando una regresión lineal sobre la diferencia entre registros consecutivos de ambas variables. Partimos los datos en dos grupos: uno donde el cambio del Brent es positivo, y otro donde es negativo. Y comparamos el valor de la pendiente resultante en la regresión lineal de cada grupo. En el siguiente grafico, de intervalos de cofianza, podemos ver la diferencia entre pendientes.
+Una forma de analizar la asimetría en estos datos, es calculando una regresión lineal sobre la diferencia entre registros consecutivos de ambas variables(sin retardos en este ejemplo). Separamos los datos en dos grupos: uno donde el cambio del Brent es positivo, y otro donde es negativo. Comparamos el valor de la pendiente resultante de la regresión lineal de cada grupo. En el siguiente gráfico, de intervalos de cofianza(error estándar), podemos ver la diferencia entre pendientes.
 
 
 <p>&nbsp;</p>
 <div align="center">
-    <figcaption>Rangos del efecto del Brent para cambios positvos y negativos</figcaption>
+    <figcaption>Rangos del efecto del Brent para cambios positvos y negativos(2010-2023)</figcaption>
     <img src="{{ site.baseurl }}/images/ranges_slopes.png">    
 </div>
 <p>&nbsp;</p>
 
+Por cada dolar que caiga el precio del Brent, la tasa de cambio incrementa 2.98 pesos; pero por cada dolar que aumente el precio del Brent, la tasa de cambio disminuye solo 1.72 pesos.
 
+Podemos concluir que este análisis nos deja varias preguntas: ¿Por qué para el año 2021 hay una asociación positiva?, ¿Cuál es el mecanismo de la asimetría?. Para un futuro análisis se debe incluir el índice, DXY, de fortaleza del dolar, y estudiar la asociación conjunta de las 3 variables.  
 
 
 
