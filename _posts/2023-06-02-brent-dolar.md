@@ -108,7 +108,11 @@ Por cada dolar que caiga el precio del Brent, la tasa de cambio incrementa 2.98 
 
 Podemos concluir que este análisis nos deja varias preguntas: ¿Por qué para el año 2021 hay una asociación positiva?, ¿Cuál es el mecanismo de la asimetría?. Para un futuro análisis se debe incluir el índice, DXY, de fortaleza del dolar, y estudiar la asociación conjunta de las 3 variables.  
 
+## Fuentes de datos
 
+__Dolar Colombia:__ [Link here](https://totoro.banrep.gov.co/estadisticas-economicas/faces/pages/charts/line.xhtml?facesRedirect=true)
+
+__Brent y DXY:__ [Link here](https://pypi.org/project/yfinance/)
 
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://lamahechag.github.io/brent-dolar/">Dependencia COP/USD y el barril Brent</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/lamahechag">luis alejandro mahecha</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
