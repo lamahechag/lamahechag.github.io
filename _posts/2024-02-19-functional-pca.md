@@ -4,7 +4,6 @@ title: Principal Component Analysis for functional data
 date: 2024-01-19
 datatable: true
 published: true
-bibliography: fda_ref.bib
 ---
 
 We usually use PCA for dimensionality reduction or to find the most important
@@ -28,7 +27,7 @@ Now lets do the same, but for a dataset of curves $x_{i}(t)$.
 $$ x_{i}(t) = \bar{x}(t) + \sum_{j=1}^{\infty}f_{ij}\xi_{j}(t).$$
 
 <div align="center">
-    <img src="{{ site.baseurl }}/images/curves_components.png">
+    <img src="{{site.baseurl}}/images/curves_components.png">
 </div>
 
 Real data are not continuous functions, so each curve is a series of points in time. Then this dataset of curves can be represented by the matrix $\boldsymbol{X}$, where the horizontal index represents time steps.
@@ -89,22 +88,69 @@ $$\mathbf{K}_{MM} ={\begin{bmatrix}\mathbf{K}_{XX}&\mathbf{K}_{XY}&\mathbf{K}_{X
 \mathbf{K}_{XY}^{\rm{T}}&\mathbf{K}_{YY}&\mathbf{K}_{YZ}\\
 \mathbf{K}_{XZ}^{\rm{T}}&\mathbf{K}_{YZ}^{\rm{T}}&\mathbf{K}_{ZZ}\end{bmatrix}}$$
 
-The off-diagonal matrices has the information of the linear correlations. The diagonal elements are positive, then the eigenvalue equation for $$\mathbf{K}_{MM}$$ can be solved, and the resulting eigenvectors $\mathbf{u}_{i}$ are also block composed. The first block represents the $x$ variable, the second represents $y$, and so on.
+The off-diagonal matrices has the information of the linear correlations. The diagonal elements are positive real, then the eigenvalue equation for $$\mathbf{K}_{MM}$$ can be solved, and the resulting eigenvectors $\mathbf{u}_{i}$ are also block composed. The first block represents the $x$ variable, the second represents $y$, and so on.
 
-$$ \mathbf{u} = (\mathbf{u}_{x}, \mathbf{u}_{y}, \mathbf{u}_{z}).$$
+$$ \mathbf{u} = {\begin{bmatrix}\mathbf{u}_{x}\\\mathbf{u}_{y}\\\mathbf{u}_{z}\end{bmatrix}}.$$
 
 The principal components should be also written as
 
-$$ \boldsymbol{\xi} = \Delta t^{-1/2}\mathbf{u} $$
+$$ \boldsymbol{\xi} = \Delta t^{-1/2}\mathbf{u},$$
+
+and the score $f_{ij}$ is the same for each of the principal variable components. The expansion can be written as
+
+$$ Expansion in vector notation$$
+
+The difference of the resulting scores between the uni-variate and the multi-variate solution, is that the scores will be Pearson uncorrelated for the multi-variate case. For the uni-variate case, will be Pearson correlate between variables, but uncorrelated between the scores of the same variable. Uncorrelated scores allow you to use the scores as the input for a linear model, that is the only advantage in supervised machine learning, but if you use any non-linear model you avoid collinearity issues.   
+
 
 Given stacked matrices of functional data, where each matrix represent a variable, the resulting cross-covariance matrix has simetrycal properties.The diagonal has real positive elements, and the off-diagonal constituent matrices are the transpose of their mirror matrix. Then, this is a system of symmetric real matrices.
 
 # Pythom implementation
 
-Here, I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset. 
+Here, I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset.
+
+First, lets download the data curves of hip and knee. Get them from the following links:
+
+[hip data]({{site.baseurl}}/datasets/hip.npy "download"), [knee data]({{site.baseurl}}/datasets/knee.npy "download"), [domain data]({{site.baseurl}}/datasets/domain.npy "download")
+
+Load hip, knee, the time domain, and plot the curves.
+
+```python
+import numpy as np
+import pandas as pd
+import math
+import matplotlib.pyplot as plt
+
+domain = np.load("domain.npy")
+hip = np.load("hip.npy")
+knee = np.load("knee.npy")
+```
+
+The code for principal component calculation is as follow:
 
 
-
+```python
+n_comps = 3
+# calculate mean
+hip_mean = hip.mean(axis=0)
+knee_mean = knee.mean(axis=0)
+m_ccov = np.cov(hip, knee, rowvar=False)
+v, u = np.linalg.eig(m_ccov)
+w = 1/20
+# eigenfunctions
+phi = math.pow(w, -0.5)*u
+# scores is the dot product times w.
+data_block = np.block([hip, knee])
+# center data
+mean_vect = data_block.mean(axis=0)
+scores = w*np.matmul(data_block - mean_vect, phi[:, :n_comps])
+# multiple for perturbation
+hip_tav = w*hip_mean.sum()
+c_hip = np.linalg.norm(hip_mean - hip_tav)*math.pow(w, 0.5)
+# perturbation of mean
+hip_up = hip_mean + 0.5*c_hip*phi[:, 0][0:len(domain)]
+hip_down = hip_mean - 0.5*c_hip*phi[:, 0][0:len(domain)]
+```
 
 
 # Synthetic data

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 1D Random walk and binomial distribution
-published: false
+published: True
 ---
-A point particle can move in one dimentional discrete space. In each time step it can randomly move forward or backward.
+A point particle can move in one dimensional discrete space. In each time step it can randomly move forward or backward.
 The question is ¿Where is going to be the particle after $n$ steps? ¿What is the probability distribution os position $k$?
 
 The final position $k$ after $B$ forward and $F$ backward steps have the relations:

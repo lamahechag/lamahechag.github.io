@@ -3,7 +3,7 @@ layout: post
 title: Can the eigenvalues of a block matrix be written in terms of the eigenvalues of the constituent matrices?
 date: 2023-12-01
 datatable: true
-published: false
+published: True
 ---
 
 Given stacked matrices of functional data, where each matrix represent a variable, te resulting cross-covariance matrix has simetrycal properties.The diagonal has real positive elements, and the off-diagonal constituent matrices are the transpose of their mirror matrix. Then, this is a system of symmetric real matrices.
