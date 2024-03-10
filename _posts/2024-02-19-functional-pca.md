@@ -10,6 +10,9 @@ We usually use PCA for dimensionality reduction or to find the most important
 component of variation within a dataset. We use to do it with data-points, but real data are not just points, are curves(time series), are surfaces(images). Here is where functional analysis brings a general approach to find the 
 principal components and reduce the data.
 
+<div align="center">
+    <img src="{{site.baseurl}}/images/fda/from0d_2d.png">
+</div>
 
 PCA solves a maximization problem, whose result is a set of orthonormal components or basis. Orthonormality and basis can be defined more general than 
 our dimension intuition of directions and vectors. For example, modes of oscillation can represent basis in the case of string vibrations. This general definition of PCA is stated by the Karhunen-Loéve expansion\[[^fn2]\]  \[[^fn3]\]:
@@ -71,6 +74,12 @@ Where the norm of $\xi(t)$ is 1, and then:
 
 $$ \int \xi_{i}^{2}(t)\,dt \approx \Delta t \sum_{i=1}^{n} \xi^{2}(s_{i}) = 1$$
 
+The scores are calculated as:
+
+$$ f_{ij} = \int x_{ci}(t)\xi_{j}(t)\,dt \approx \Delta t \boldsymbol{\xi}_{j} \cdot \mathbf{x}_{ci}$$
+
+And can be written, more general, as the product of the centered data-matrix with the column matrix of principal components.
+
 # Numerical method for multivariate functional PCA
 
 In the multivariate case we calculate the join covariance between the variables. For this purpose, we need a block matrix of the variables curves.
@@ -98,16 +107,16 @@ $$ \boldsymbol{\xi} = \Delta t^{-1/2}\mathbf{u},$$
 
 and the score $f_{ij}$ is the same for each of the principal variable components. The expansion can be written as
 
-$$ Expansion in vector notation$$
+$$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\\\mathbf{z}_{i}\end{bmatrix}} = {\begin{bmatrix}\bar{x}\\\bar{y}\\\bar{z}\end{bmatrix}} + \sum_{j=1}^{\infty} f_{ij}\Delta t^{-1/2}{\begin{bmatrix}\mathbf{u}_{jx}\\\mathbf{u}_{jy}\\\mathbf{u}_{jz}\end{bmatrix}}$$
 
-The difference of the resulting scores between the uni-variate and the multi-variate solution, is that the scores will be Pearson uncorrelated for the multi-variate case. For the uni-variate case, will be Pearson correlate between variables, but uncorrelated between the scores of the same variable. Uncorrelated scores allow you to use the scores as the input for a linear model, that is the only advantage in supervised machine learning, but if you use any non-linear model you avoid collinearity issues.   
+The difference of the resulting scores between the uni-variate and the multi-variate solution, is that the scores will be Pearson uncorrelated for the multi-variate case. For the uni-variate case, will be Pearson correlate between variables, but uncorrelated between the scores of the same variable. Uncorrelated scores allow you to use the scores as the input for a linear model, that is the only advantage in supervised machine learning, but if you use any non-linear model you avoid collinearity issues \[[^fn4]\].   
 
 
 Given stacked matrices of functional data, where each matrix represent a variable, the resulting cross-covariance matrix has simetrycal properties.The diagonal has real positive elements, and the off-diagonal constituent matrices are the transpose of their mirror matrix. Then, this is a system of symmetric real matrices.
 
 # Pythom implementation
 
-Here, I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset.
+Here I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset.
 
 First, lets download the data curves of hip and knee. Get them from the following links:
 
@@ -126,6 +135,10 @@ hip = np.load("hip.npy")
 knee = np.load("knee.npy")
 ```
 
+<div align="center">
+    <img src="{{site.baseurl}}/images/fda/hip_knee.png">
+</div>
+
 The code for principal component calculation is as follow:
 
 
@@ -134,14 +147,15 @@ n_comps = 3
 # calculate mean
 hip_mean = hip.mean(axis=0)
 knee_mean = knee.mean(axis=0)
+# covariance matrix and solve eigen-value problem.
 m_ccov = np.cov(hip, knee, rowvar=False)
 v, u = np.linalg.eig(m_ccov)
 w = 1/20
 # eigenfunctions
 phi = math.pow(w, -0.5)*u
-# scores is the dot product times w.
+# create block matrix
 data_block = np.block([hip, knee])
-# center data
+# center data. Scores are the dot product times w.
 mean_vect = data_block.mean(axis=0)
 scores = w*np.matmul(data_block - mean_vect, phi[:, :n_comps])
 # multiple for perturbation
@@ -151,6 +165,22 @@ c_hip = np.linalg.norm(hip_mean - hip_tav)*math.pow(w, 0.5)
 hip_up = hip_mean + 0.5*c_hip*phi[:, 0][0:len(domain)]
 hip_down = hip_mean - 0.5*c_hip*phi[:, 0][0:len(domain)]
 ```
+Note that the code implements all the matrix operations developed in the last 2 sections. The resulting components
+can be seen in the following figures:
+
+<p align="center">
+  <img alt="Light" src="{{site.baseurl}}/images/fda/pc1_hip.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="{{site.baseurl}}/images/fda/loop_component.png" width="45%">
+</p>
+
+The first univariate plot represents the hip principal component. The loop represents the first components of hip(var 1) and knee(var 2) jointly. This is the same result obtained by Ramsay and Silverman \[[^fn1]\] pages 167-170. 
+
+Each curve can be build approximately with the first $k$ components, lets say the $k$ components that carry the 90% of the variance. In this bivariate set, we write
+
+$$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}} \approx {\begin{bmatrix}\bar{x}\\\bar{y}\end{bmatrix}} + \sum_{j=1}^{k} f_{ij}\Delta t^{-1/2}{\begin{bmatrix}\mathbf{u}_{jx}\\\mathbf{u}_{jy}\end{bmatrix}}.$$
+
+
 
 
 # Synthetic data
@@ -168,5 +198,5 @@ References
 
 [^fn3]: Jane-Ling Wang, Jeng-Min Chiou, Hans-Georg Muller. Review of Functional Data Analysis. Annu Rev Statist 2015
 
-
+[^fn4]: [Multivariate principal component analysis for data observed in diﬀerent domains Clara Happ and Sonja Greven](https://doi.org/10.1080/01621459.2016.1273115)
 
