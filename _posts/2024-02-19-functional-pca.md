@@ -188,6 +188,33 @@ $$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}} \approx {\begin{
 Given the basis $\xi_{j}$, It allows us to build a random set of data generating random values for $f_{j}$. It could be points or curves. For example, a set
 of arithmetic Brownian trajectories. 
 
+The arithmetic Brownian motion, continuous in time, is called Wiener process, and its representation as a Fourier expansion is:
+
+$$ W_{t}={\sqrt {2}}\sum _{i=1}^{\infty }\xi _{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }} $$
+
+where $\xi_{k}$ is Gaussian with zero mean and variance one. Each component has equal variance importance. The approximate form is
+
+$$ W_{t} \approx {\sqrt {2}}\sum _{i=1}^{k}\xi _{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }}.$$
+
+Lets create a code, and see how this Fourier summation approach an arithmetic random walk as $k$ increases.
+
+```python
+k_comp = 10
+xis = np.random.normal(loc=0, scale=1, size=k_comp)
+t = np.arange(0, 1, 0.001)
+sin_curves = []
+for k in range(1, k_comp+1):
+    sin_curves.append(xis[k-1]*np.sin((k-0.5)*np.pi*t)/((k-0.5)*np.pi))
+
+instance = math.sqrt(2)*(np.array(sin_curves)).sum(axis=0)
+```
+
+<div align="center">
+    <img src="{{site.baseurl}}/images/fda/comps_weiner_fourier.png">
+</div>
+
+
+
 
 References
 ----------
