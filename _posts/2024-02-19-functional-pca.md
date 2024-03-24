@@ -185,7 +185,7 @@ $$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}} \approx {\begin{
 
 # Synthetic data
 
-Given the basis $\xi_{j}$, It allows us to build a random set of data generating random values for $f_{j}$. It could be points or curves. For example, a set
+Given the basis $\xi_{j}$, It allows us to build a random set of data, generating random values for $f_{j}$. It could be points or curves. For example, a set
 of arithmetic Brownian trajectories. 
 
 The arithmetic Brownian motion, continuous in time, is called Wiener process, and its representation as a Fourier expansion is:
@@ -196,7 +196,7 @@ where $\xi_{k}$ is Gaussian with zero mean and variance one. Each component has 
 
 $$ W_{t} \approx {\sqrt {2}}\sum _{i=1}^{k}\xi _{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }}.$$
 
-Lets create a code, and see how this Fourier summation approach an arithmetic random walk as $k$ increases.
+Lets create a code, and see how this Fourier summation approaches an arithmetic random walk as $k$ increases.
 
 ```python
 k_comp = 10
@@ -213,8 +213,19 @@ instance = math.sqrt(2)*(np.array(sin_curves)).sum(axis=0)
     <img src="{{site.baseurl}}/images/fda/comps_weiner_fourier.png">
 </div>
 
+The synthetic functional dataset for this example will have 10 components and 100 curves:
 
+<div align="center">
+    <img src="{{site.baseurl}}/images/fda/weiner_curves.png">
+</div>
 
+The curves follow a diffusion process as expected for a random walk.
+
+To create a correlated bivariate functional data, It is needed two independent datasets $x$ and $y$. Then, the two variables can be correlate with the following operation:
+
+$$ {\begin{bmatrix}\mathbf{x'}_{i}\\\mathbf{y'}_{i}\end{bmatrix}} ={\begin{bmatrix} \sqrt{\frac{1+\rho}{2}} & \sqrt{\frac{1-\rho}{2}}\\ \sqrt{\frac{1+\rho}{2}} & -\sqrt{\frac{1-\rho}{2}}\end{bmatrix}} {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}}$$
+
+Where $\rho$ is the correlation. 
 
 References
 ----------
