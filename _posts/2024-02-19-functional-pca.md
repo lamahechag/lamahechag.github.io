@@ -111,9 +111,6 @@ $$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\\\mathbf{z}_{i}\end{bmatrix}} 
 
 The difference of the resulting scores between the uni-variate and the multi-variate solution, is that the scores will be Pearson uncorrelated for the multi-variate case. For the uni-variate case, will be Pearson correlate between variables, but uncorrelated between the scores of the same variable. Uncorrelated scores allow you to use the scores as the input for a linear model, that is the only advantage in supervised machine learning, but if you use any non-linear model you avoid collinearity issues \[[^fn4]\].   
 
-
-Given stacked matrices of functional data, where each matrix represent a variable, the resulting cross-covariance matrix has simetrycal properties.The diagonal has real positive elements, and the off-diagonal constituent matrices are the transpose of their mirror matrix. Then, this is a system of symmetric real matrices.
-
 # Pythom implementation
 
 Here I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset.
@@ -190,11 +187,11 @@ of arithmetic Brownian trajectories.
 
 The arithmetic Brownian motion, continuous in time, is called Wiener process, and its representation as a Fourier expansion is:
 
-$$ W_{t}={\sqrt {2}}\sum _{i=1}^{\infty }\xi _{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }} $$
+$$ W_{t}={\sqrt {2}}\sum _{i=1}^{\infty }f_{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }} $$
 
-where $\xi_{k}$ is Gaussian with zero mean and variance one. Each component has equal variance importance. The approximate form is
+where $f_{k}$ is Gaussian with zero mean and variance one. The sine functions are the components $\xi_{i}(t)$. Each component has equal variance importance. The approximate form is
 
-$$ W_{t} \approx {\sqrt {2}}\sum _{i=1}^{k}\xi _{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }}.$$
+$$ W_{t} \approx {\sqrt {2}}\sum _{i=1}^{k}f_{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }}.$$
 
 Lets create a code, and see how this Fourier summation approaches an arithmetic random walk as $k$ increases.
 
@@ -221,11 +218,27 @@ The synthetic functional dataset for this example will have 10 components and 10
 
 The curves follow a diffusion process as expected for a random walk.
 
-To create a correlated bivariate functional data, It is needed two independent datasets $x$ and $y$. Then, the two variables can be correlate with the following operation:
+To create a correlated bivariate functional data, It is needed two independent datasets $x$ and $y$. Then, the two variables can be correlate with the following operation\[[^fn2]\]:
 
 $$ {\begin{bmatrix}\mathbf{x'}_{i}\\\mathbf{y'}_{i}\end{bmatrix}} ={\begin{bmatrix} \sqrt{\frac{1+\rho}{2}} & \sqrt{\frac{1-\rho}{2}}\\ \sqrt{\frac{1+\rho}{2}} & -\sqrt{\frac{1-\rho}{2}}\end{bmatrix}} {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}}$$
 
 Where $\rho$ is the correlation. 
+
+
+<div align="center">
+    <img src="{{site.baseurl}}/images/fda/cov_map_nocorr.png">
+</div>
+
+<div align="center">
+    <img src="{{site.baseurl}}/images/fda/cov_map_corr.png">
+</div>
+
+
+<p align="center">
+  <img alt="Light" src="{{site.baseurl}}/images/fda/x_p1_fourier.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="{{site.baseurl}}/images/fda/xy_p1_fourier.png" width="45%">
+</p>
 
 References
 ----------
