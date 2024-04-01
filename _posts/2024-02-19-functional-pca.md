@@ -6,6 +6,14 @@ datatable: true
 published: true
 ---
 
+# Motivation
+A few years ego in my job, I was dealing with datasets of time curves. It was needed to transform those curves to simple data-points, that allowed the use of a classical machine learning model. R and Python offered several package alternatives, but were not stable repositories(for production) and without the specific solution for multivariate 1d domain curves.
+
+This challenged me to understand in deep multivariate functional PCA. Fortunately I had some background of Functional analysis. I got just a 3.5/5; and never thought, the little I learned, would be helpful. 
+
+Here I develop the methods of chapter 8 from the book \[[^fn1]\]. I translate the integral approximations, of functional eigen-problem, into a more friendly matrix representation of blocks, that reduces the functional PCA to the classical eigen-value matrix calculation.   
+
+# Introduction
 We usually use PCA for dimensionality reduction or to find the most important
 component of variation within a dataset. We use to do it with data-points, but real data are not just points, are curves(time series), are surfaces(images). Here is where functional analysis brings a general approach to find the 
 principal components and reduce the data.
