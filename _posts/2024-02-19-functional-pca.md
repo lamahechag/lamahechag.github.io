@@ -1,18 +1,18 @@
 ---
 layout: post
-title: Principal Component Analysis for functional data
+title: Principal Component Analysis for functional data (FPCA)
 date: 2024-01-19
 datatable: true
 published: true
 ---
 
-# Motivation
-A few years ego in my job, I was dealing with datasets of time curves. It was needed to transform those curves to simple data-points, that allowed the use of a classical machine learning model. R and Python offered several package alternatives, but were not stable repositories(for production) and without the specific solution for multivariate 1d domain curves.
+## Motivation
+A few years ego, in my job, I was dealing with datasets of time curves. It was needed to transform those curves to simple data-points, that allowed the use of a classical machine learning model. R and Python offered several package alternatives, but were not stable repositories(for production) and without the specific solution for multivariate 1d domain curves.
 
-This challenged me to understand in deep multivariate functional PCA. Fortunately I had some background of Functional analysis.
-Here I develop the methods of chapter 8 from the book \[[^fn1]\]. I translate the integral approximations, of functional eigen-problem, into a more friendly matrix representation of blocks, that reduces the functional PCA to the classical eigen-value matrix calculation.   
+This challenged me to understand in deep multivariate functional PCA. Fortunately I had some background about Functional analysis.
+Here I develop the methods of chapter 8 from the book \[[^fn1]\]. I translate the integral approximations, of functional eigen-problem, into a more friendly matrix representation of blocks. That reduces the functional PCA to the classical eigen-value matrix calculation.   
 
-# Introduction
+## Introduction
 We usually use PCA for dimensionality reduction or to find the most important
 component of variation within a dataset. We use to do it with data-points, but real data are not just points, are curves(time series), are surfaces(images). Here is where functional analysis brings a general approach to find the 
 principal components and reduce the data.
@@ -42,7 +42,7 @@ $$ x_{i}(t) = \bar{x}(t) + \sum_{j=1}^{\infty}f_{ij}\xi_{j}(t).$$
 
 Real data are not continuous functions, so each curve is a series of points in time. Then this dataset of curves can be represented by the matrix $\boldsymbol{X}$, where the horizontal index represents time steps.
 
-# Numerical method for functional PCA
+## Numerical method for functional PCA
 
 To find the principal components, first I should introduce a couple of Functional Analysis concepts. In this branch of Mathematics there are functions and operators. Operators are objects that modify functions, the same way as functions modify numbers [^fn1]. For this interaction between operators and functions we can write an eigenvalue equation.
 
@@ -87,7 +87,7 @@ $$ f_{ij} = \int x_{ci}(t)\xi_{j}(t)\,dt \approx \Delta t \boldsymbol{\xi}_{j} \
 
 And can be written, more general, as the product of the centered data-matrix with the column matrix of principal components.
 
-# Numerical method for multivariate functional PCA
+## Numerical method for multivariate functional PCA
 
 In the multivariate case we calculate the join covariance between the variables. For this purpose, we need a block matrix of the variables curves.
 
@@ -116,11 +116,11 @@ and the score $f_{ij}$ is the same for each of the principal variable components
 
 $$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\\\mathbf{z}_{i}\end{bmatrix}} = {\begin{bmatrix}\bar{x}\\\bar{y}\\\bar{z}\end{bmatrix}} + \sum_{j=1}^{\infty} f_{ij}\Delta t^{-1/2}{\begin{bmatrix}\mathbf{u}_{jx}\\\mathbf{u}_{jy}\\\mathbf{u}_{jz}\end{bmatrix}}$$
 
-The difference of the resulting scores between the uni-variate and the multi-variate solution, is that the scores will be Pearson uncorrelated for the multi-variate case. For the uni-variate case, will be Pearson correlate between variables, but uncorrelated between the scores of the same variable. Uncorrelated scores allow you to use the scores as the input for a linear model, that is the only advantage in supervised machine learning, but if you use any non-linear model you avoid collinearity issues \[[^fn4]\].   
+The difference of the resulting scores between the uni-variate and the multi-variate solution, is that the scores will be Pearson uncorrelated for the multi-variate case. For the uni-variate case, will be Pearson correlate between variables, but uncorrelated between the scores of the same variable. Uncorrelated scores allow you to use the scores as the input for a linear model. That is the only advantage in supervised machine learning. But if you use any non-linear model, you avoid the collinearity issues \[[^fn4]\].   
 
-# Pythom implementation
+## Pythom implementation
 
-Here I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset.
+Here, I am going to use just Numpy, and test the implementation with the classical functional Gait cycle dataset.
 
 First, lets download the data curves of hip and knee. Get them from the following links:
 
@@ -187,16 +187,16 @@ $$ {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}} \approx {\begin{
 
 
 
-# Synthetic data
+## Synthetic data
 
 Given the basis $\xi_{j}$, It allows us to build a random set of data, generating random values for $f_{j}$. It could be points or curves. For example, a set
 of arithmetic Brownian trajectories. 
 
-The arithmetic Brownian motion, continuous in time, is called Wiener process, and its representation as a Fourier expansion is:
+The arithmetic Brownian motion, continuous in time, is called Wiener process. Its representation as a Fourier expansion is:
 
 $$ W_{t}={\sqrt {2}}\sum _{i=1}^{\infty }f_{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }} $$
 
-where $f_{k}$ is Gaussian with zero mean and variance one. The sine functions are the components $\xi_{i}(t)$. Each component has equal variance importance. The approximate form is
+where $f_{i}$ is Gaussian with zero mean and variance one. The sine functions are the components $\xi_{i}(t)$. Each component has equal variance importance. The approximate form is
 
 $$ W_{t} \approx {\sqrt {2}}\sum _{i=1}^{k}f_{i}{\frac {\sin \left(\left(i-{\frac {1}{2}}\right)\pi t\right)}{\left(i-{\frac {1}{2}}\right)\pi }}.$$
 
@@ -223,29 +223,46 @@ The synthetic functional dataset for this example will have 10 components and 10
     <img src="{{site.baseurl}}/images/fda/weiner_curves.png">
 </div>
 
-The curves follow a diffusion process as expected for a random walk.
+The curves follow a diffusion process, where variance increases, as expected for a random walk.
 
 To create a correlated bivariate functional data, It is needed two independent datasets $x$ and $y$. Then, the two variables can be correlate with the following operation\[[^fn2]\]:
 
 $$ {\begin{bmatrix}\mathbf{x'}_{i}\\\mathbf{y'}_{i}\end{bmatrix}} ={\begin{bmatrix} \sqrt{\frac{1+\rho}{2}} & \sqrt{\frac{1-\rho}{2}}\\ \sqrt{\frac{1+\rho}{2}} & -\sqrt{\frac{1-\rho}{2}}\end{bmatrix}} {\begin{bmatrix}\mathbf{x}_{i}\\\mathbf{y}_{i}\end{bmatrix}}$$
 
-Where $\rho$ is the correlation. 
+Where $\rho$ is the correlation. The following heatmaps represent the covariance matrix of $xy$, and that of $x'y'$ due to the correlation operation with $\rho=0.8$. The off-diagonal colors show the effect of correlation and the block-matrix structure..
 
 
 <div align="center">
+    <figcaption> Uncorrelated $x$ and $y$ </figcaption>
     <img src="{{site.baseurl}}/images/fda/cov_map_nocorr.png">
 </div>
 
 <div align="center">
+    <figcaption> Correlated $x'$ and $y'$ </figcaption>
     <img src="{{site.baseurl}}/images/fda/cov_map_corr.png">
 </div>
 
-
+The resulting PCA for the correlated data is:
 <p align="center">
   <img alt="Light" src="{{site.baseurl}}/images/fda/x_p1_fourier.png" width="45%">
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img alt="Dark" src="{{site.baseurl}}/images/fda/xy_p1_fourier.png" width="45%">
 </p>
+where we can see the diffusion effect, of Brownian motion, in the first component, and also that there is not closed cycle as that for the gait data. The variance increments with time. 
+
+## Conclusions
+
+1. With this Numpy implementation is possible to process 1 million of curves for 4 variables. Each curve with 365 domain points. The machine used for this was an ec2 of 132 Gb of RAM and 32 cores, and the PCA fit took around 3 minutes. 
+
+1. If the PCA scores are going to be used as te input for a model, may have collinearity problems if the model is a multivariate linear regression. In the case of a non-linear model, like a base tree one, there is not difference in the model performance, using the scores of univariate FPCA or multivarite FPCA.
+
+1. Functional PCA is an encoder-decoder methodology, but because of its simple covariance implementation it is limited to a linear encoding. It should be compared the multivariate FPCA for images with that of neural network embeddings, what is the difference of performance when the dataset of images has inner linear relations.
+
+1. FPCA is a group or set aggregation methodology and don't have to be confused with time series analysis. In time series analysis the aggregations or estimators are calculated over time, for a single curve. Then in FPCA the scores represent the variation of an individual relative to the group mean curve, while in time series it is possible to compare an individual with itself in different times.
+
+1. When using FPCA fit for machine learning, the mean curve of the train dataset should be used to center the test dataset. This is important because the scores represents the variations relative to the mean train curve. Other wise, you can get different scores for the same curve in the test set.
+
+1. Finally, once you have a prototype of FPCA for your dataset, compare it with other simpler method. Take the one that is faster, easy to understand and with a good model metrics. 
 
 References
 ----------
