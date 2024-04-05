@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Principal Component Analysis for functional data (FPCA)
-date: 2024-01-19
+date: 2024-02-19
 datatable: true
 published: true
 ---
@@ -275,3 +275,5 @@ References
 
 [^fn4]: [Multivariate principal component analysis for data observed in diﬀerent domains Clara Happ and Sonja Greven](https://doi.org/10.1080/01621459.2016.1273115)
 
+
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://lamahechag.github.io/functional-pca/">Principal Component Analysis for functional data (FPCA)</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://lamahechag.github.io/about/">Luis Alejandro Mahecha</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
