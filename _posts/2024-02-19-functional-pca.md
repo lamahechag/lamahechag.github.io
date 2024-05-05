@@ -7,7 +7,7 @@ published: true
 ---
 
 ## Motivation
-A few years ego, in my job, I was dealing with datasets of time curves. It was needed to transform those curves to simple data-points, that allowed the use of a classical machine learning model. R and Python offered several package alternatives, but were not stable repositories(for production) and without the specific solution for multivariate 1d domain curves.
+A few years ago, in my job, I was dealing with datasets of time curves. It was needed to transform those curves to simple data-points, that allowed the use of a classical machine learning model. R and Python offered several package alternatives, but were not stable repositories(for production) and without the specific solution for multivariate 1d domain curves.
 
 This challenged me to understand in deep multivariate functional PCA. Fortunately I had some background about Functional analysis.
 Here I develop the methods of chapter 8 from the book \[[^fn1]\]. I translate the integral approximations, of functional eigen-problem, into a more friendly matrix representation of blocks. That reduces the functional PCA to the classical eigen-value matrix calculation.   

@@ -5,11 +5,11 @@ published: false
 ---
 We can derive probability distributions from a single random process: Binomial, Poisson, exponential, Gaussian.
 
-Tossing a coinis the basic step. And see the behaviour 
+Tossing a coin is the basic step. And see the behaviour 
 for different limits: small probability and large number of tosses.
 
 We can also use it as a more general explanation for rate equations or chemical reactions dynamics. Where
-the event of getting a head y equivalent to the creation of a protein.
+the event of getting a head is equivalent to the creation of a protein.
 
 If $\gamma$ is the rate, that is defined as the average events per unit of time, like getting heads or protein creation.
 For a coin with probability $p$ of heads, we know that the average number of heads after $N$ tosses is $Np$.
